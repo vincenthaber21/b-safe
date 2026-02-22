@@ -1,3 +1,6 @@
+// Base URL for PHP backend (XAMPP)
+const BASE_URL = 'http://localhost/BSAFE/B-Safe/';
+
 // Modal Functions
 let resendTimer = null; // OTP countdown timer (top-level scope)
 
@@ -94,7 +97,7 @@ if (loginForm) {
         fd.append('email',    email);
         fd.append('password', password);
 
-        fetch('email_verify/login_handler.php', { method: 'POST', body: fd })
+        fetch(BASE_URL + 'email_verify/login_handler.php', { method: 'POST', body: fd })
             .then(r => r.json())
             .then(data => {
                 if (data.success) {
@@ -138,7 +141,7 @@ if (signupForm) {
 
         const formData = new FormData(this);
 
-        fetch('email_verify/register.php', {
+        fetch(BASE_URL + 'email_verify/register.php', {
             method: 'POST',
             body: formData
         })
@@ -181,7 +184,7 @@ if (otpForm) {
 
         const formData = new FormData(this);
 
-        fetch('email_verify/verify_register_otp.php', {
+        fetch(BASE_URL + 'email_verify/verify_register_otp.php', {
             method: 'POST',
             body: formData
         })
@@ -258,7 +261,7 @@ function resendOtp(e) {
     link.textContent    = 'Sending…';
     link.dataset.disabled = 'true';
 
-    fetch('email_verify/register.php', { method: 'POST', body: fd })
+    fetch(BASE_URL + 'email_verify/register.php', { method: 'POST', body: fd })
         .then(r => r.json())
         .then(data => {
             if (data.success) {
