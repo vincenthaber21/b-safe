@@ -1,0 +1,455 @@
+/* Residents Section */
+.residents-section {
+    padding: 60px 0;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Search and Controls */
+.residents-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-box,
+.filter-select {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 250px;
+}
+
+.filter-select {
+    min-width: 150px;
+    cursor: pointer;
+}
+
+.search-box:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-secondary {
+    background: #667eea;
+    color: white;
+    white-space: nowrap;
+}
+
+.btn-secondary:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* View Toggle */
+.view-toggle {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.toggle-btn {
+    padding: 10px 20px;
+    border: 2px solid #ddd;
+    background: white;
+    color: #666;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.toggle-btn:hover {
+    border-color: #667eea;
+}
+
+/* Residents Grid */
+.residents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Resident Card */
+.resident-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.resident-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.resident-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 1rem;
+}
+
+.resident-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.resident-name-info {
+    flex: 1;
+}
+
+.resident-name {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
+}
+
+.resident-role {
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0.25rem 0 0 0;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.status-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Resident Details */
+.resident-info {
+    margin-bottom: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-label {
+    color: #666;
+    font-weight: 500;
+    min-width: 100px;
+}
+
+.info-value {
+    color: #333;
+    text-align: right;
+    flex: 1;
+}
+
+/* Action Buttons */
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.card-btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border: 1px solid #ddd;
+    background: white;
+    color: #667eea;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* Residents Table */
+.residents-table-wrapper {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.residents-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.residents-table thead {
+    background: #667eea;
+    color: white;
+}
+
+.residents-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.residents-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.residents-table tbody tr:hover {
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+.residents-table tbody tr td:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.table-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border: 1px solid #ddd;
+    background: white;
+    color: #667eea;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.table-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* Modal Large */
+.modal-large {
+    max-width: 700px;
+}
+
+.resident-modal-content {
+    margin-top: 1rem;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.modal-header-info h2 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.modal-header-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.modal-section {
+    margin-bottom: 2rem;
+}
+
+.modal-section h3 {
+    color: #667eea;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #666;
+}
+
+.detail-value {
+    color: #333;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #999;
+    grid-column: 1 / -1;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header h1 {
+        font-size: 2rem;
+    }
+
+    .residents-controls {
+        flex-direction: column;
+    }
+
+    .search-box,
+    .filter-select,
+    .btn-secondary {
+        width: 100%;
+    }
+
+    .residents-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .residents-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .residents-table {
+        min-width: 600px;
+    }
+
+    .modal-large {
+        max-width: 90vw;
+    }
+
+    .modal-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .view-toggle {
+        flex-direction: column;
+    }
+
+    .toggle-btn {
+        width: 100%;
+    }
+
+    .info-row {
+        flex-direction: column;
+    }
+
+    .info-value {
+        text-align: left;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .residents-controls {
+        gap: 0.5rem;
+    }
+
+    .modal-header-info h2 {
+        font-size: 1.3rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+}

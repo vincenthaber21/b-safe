@@ -1,0 +1,556 @@
+/* Main Content Area */
+.main-content {
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Page Container */
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.page-header .btn {
+    background: #667eea;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-header .btn:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+}
+
+/* Card Container */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+}
+
+.card-body {
+    padding: 20px;
+    overflow: visible;
+}
+
+/* Ensure the Leaflet map container is never clipped */
+#weather-map {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+/* Weather Section */
+.weather-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.weather-section .section-header {
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.weather-section .section-header h1 {
+    color: white;
+    font-size: 2.5rem;
+}
+
+.weather-section .section-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+}
+
+/* Weather Controls */
+.weather-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.location-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.location-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+}
+
+.weather-controls .btn-secondary {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.weather-controls .btn-secondary:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+}
+
+/* Heatmap Controls */
+.heatmap-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    color: #333;
+    font-weight: 500;
+    min-width: 300px;
+}
+
+.heatmap-controls label {
+    white-space: nowrap;
+}
+
+.heatmap-controls input[type="range"] {
+    flex: 1;
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.heatmap-controls span {
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Map Wrapper */
+.map-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.google-map {
+    width: 100%;
+    height: 600px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 3px solid white;
+}
+
+/* Map Legend */
+.map-legend {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    min-width: 200px;
+}
+
+.map-legend h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.legend-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Location Info Card */
+.location-info-card {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.info-section {
+    background: white;
+    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #eee;
+}
+
+.info-section:last-child {
+    border-right: 1px solid #eee;
+    padding-right: 12px;
+}
+
+.info-section h3 {
+    color: #333;
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+}
+
+.info-section p {
+    color: #667eea;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.coordinates {
+    font-size: 0.8rem;
+    color: #999;
+    font-weight: normal;
+    margin-top: 5px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .page {
+        margin: 0;
+    }
+    
+    .weather-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .location-input {
+        min-width: 100%;
+    }
+    
+    .weather-controls .btn-secondary {
+        flex: 1;
+    }
+    
+    .heatmap-controls {
+        flex-direction: column;
+        align-items: stretch;
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    .location-info-card {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .weather-controls {
+        gap: 8px;
+    }
+    
+    .location-input {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    #weather-map {
+        height: 300px !important;
+    }
+    
+    .location-info-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading and Error States */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    z-index: 20;
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== Set Specific Location Modal ===== */
+.set-location-modal-content {
+    max-width: 520px;
+    width: 95%;
+}
+
+.set-location-subtitle {
+    color: #666;
+    margin: -8px 0 16px;
+    font-size: 14px;
+}
+
+/* Tabs */
+.set-loc-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.set-loc-tab-btn {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    transition: background 0.2s, color 0.2s;
+}
+
+.set-loc-tab-btn:hover {
+    background: #f0f4ff;
+    color: #667eea;
+}
+
+.set-loc-tab-btn.active {
+    background: #667eea;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Tab panels */
+.set-loc-tab-panel {
+    margin-bottom: 14px;
+}
+
+/* Form groups */
+.set-loc-form-group {
+    margin-bottom: 14px;
+}
+
+.set-loc-form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.set-loc-form-group input[type="text"],
+.set-loc-form-group input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.set-loc-form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* Search row */
+.set-loc-search-row {
+    display: flex;
+    gap: 8px;
+}
+
+.set-loc-search-row .location-input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Coordinates grid */
+.set-loc-coords-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Search results list */
+.set-loc-results {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fff;
+    margin-top: -6px;
+}
+
+.set-loc-result-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.set-loc-result-item:last-child {
+    border-bottom: none;
+}
+
+.set-loc-result-item:hover {
+    background: #f0f4ff;
+}
+
+.set-loc-result-item.selected {
+    background: #e8eeff;
+    font-weight: 600;
+}
+
+.set-loc-result-icon {
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.set-loc-result-text .result-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.set-loc-result-text .result-detail {
+    font-size: 12px;
+    color: #888;
+    margin-top: 1px;
+}
+
+/* Preview */
+.set-loc-preview {
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: #f0f7ff;
+    border-left: 4px solid #667eea;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #333;
+}
+
+.set-loc-preview strong {
+    color: #667eea;
+}
+
+/* Actions */
+.set-loc-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.set-loc-no-results {
+    padding: 14px;
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+}
+
+.set-loc-searching {
+    padding: 14px;
+    text-align: center;
+    color: #667eea;
+    font-size: 13px;
+}
+
+@media (max-width: 500px) {
+    .set-loc-coords-grid {
+        grid-template-columns: 1fr;
+    }
+    .set-loc-search-row {
+        flex-direction: column;
+    }
+}

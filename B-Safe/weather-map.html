@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Map - B-Safe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weather-map.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <style>
+        #weather-map {
+            width: 100%;
+            height: 500px;
+            border-radius: 4px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>B-Safe</h1>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="households.html">Households</a></li>
+                <li><a href="residents.html">Residents</a></li>
+                <li><a href="weather-map.html" class="active">Weather Map</a></li>
+                <li><a href="email-alerts.html">E-Mail Alerts</a></li>
+                <li><a href="#" onclick="openLoginModal()" class="nav-auth">Login</a></li>
+                <li><a href="#" onclick="openSignupModal()" class="nav-auth signup-btn">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Weather Map Section -->
+    <main class="main-content">
+        <section id="page-weather" class="page">
+            <div class="page-header">
+                <h2>Weather Map</h2>
+                <div>
+                    <button id="btn-refresh-weather" class="btn" onclick="loadWeatherData()">Refresh</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <!-- Weather Controls -->
+                    <div class="weather-controls">
+                        <input type="text" id="locationInput" placeholder="Enter location or address..." class="location-input">
+                        <button class="btn btn-secondary" onclick="searchLocation()">Search Location</button>
+                        <button class="btn btn-secondary" onclick="getCurrentLocation()">📍 Current Location</button>
+                        
+                        <!-- Overlay intensity control removed -->
+                    </div>
+
+                    <!-- Weather Map Container -->
+                    <div id="weather-map" style="width:100%;height:500px;border:1px solid #ddd;border-radius:4px;background:#f5f5f5;margin-bottom:20px;"></div>
+                    
+                    <!-- Location Info Card -->
+                    <div class="location-info-card">
+                        <div class="info-section">
+                            <h3>📍 Current Location</h3>
+                            <p id="locationName">Searching location...</p>
+                            <p id="coordinates" class="coordinates">Latitude: --, Longitude: --</p>
+                        </div>
+                        <div class="info-section">
+                            <h3>🌡️ Temperature</h3>
+                            <p id="tempInfo"><span id="tempValue">--</span>°C</p>
+                        </div>
+                        <div class="info-section">
+                            <h3>💨 Wind</h3>
+                            <p id="windInfo">-- km/h</p>
+                        </div>
+                        <div class="info-section">
+                            <h3>💧 Humidity</h3>
+                            <p id="humidityInfo">--%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login to B-Safe</h2>
+            <form class="auth-form" id="loginForm">
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="form-link">Don't have an account? <a href="#" onclick="switchToSignup()">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignupModal()">&times;</span>
+            <h2>Create B-Safe Account</h2>
+            <form class="auth-form" id="signupForm">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <div class="agree-terms">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the Terms and Conditions</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+                <p class="form-link">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 B-Safe. All rights reserved. | Weather data powered by Open-Meteo</p>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/weather-map.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Mail Alerts - B-Safe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/email-alerts.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>B-Safe</h1>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="households.html">Households</a></li>
+                <li><a href="residents.html">Residents</a></li>
+                <li><a href="weather-map.html">Weather Map</a></li>
+                <li><a href="email-alerts.html" class="active">E-Mail Alerts</a></li>
+                <li><a href="#" onclick="openLoginModal()" class="nav-auth">Login</a></li>
+                <li><a href="#" onclick="openSignupModal()" class="nav-auth signup-btn">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- E-Mail Alerts Section -->
+    <section class="alerts-section">
+        <div class="container">
+            <div class="section-header">
+                <h1>E-Mail Alerts</h1>
+                <p>Send important messages and alerts to residents</p>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="alerts-tabs">
+                <button class="tab-btn active" onclick="switchTab('compose')">📝 Compose Alert</button>
+                <button class="tab-btn" onclick="switchTab('templates')">📋 Alert Templates</button>
+                <button class="tab-btn" onclick="switchTab('history')">📊 Alert History</button>
+                <button class="tab-btn" onclick="switchTab('recipients')">👥 Recipients</button>
+            </div>
+
+            <!-- Compose Alert Tab -->
+            <div id="composeTab" class="tab-content active">
+                <div class="compose-container">
+                    <h2>Compose New Alert</h2>
+                    
+                    <form id="alertForm" class="alert-form">
+                        <!-- Alert Type -->
+                        <div class="form-group">
+                            <label for="alertType">Alert Type <span class="required">*</span></label>
+                            <select id="alertType" class="form-control" onchange="updateAlertIcon()" required>
+                                <option value="">-- Select Alert Type --</option>
+                                <option value="emergency">🚨 Emergency</option>
+                                <option value="warning">⚠️ Warning</option>
+                                <option value="info">ℹ️ Information</option>
+                                <option value="maintenance">🔧 Maintenance</option>
+                                <option value="weather">🌦️ Weather Alert</option>
+                                <option value="security">🔐 Security Alert</option>
+                                <option value="announcement">📢 Announcement</option>
+                            </select>
+                        </div>
+
+                        <!-- Priority Level -->
+                        <div class="form-group">
+                            <label for="priority">Priority Level <span class="required">*</span></label>
+                            <select id="priority" class="form-control" required>
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+
+                        <!-- Subject -->
+                        <div class="form-group">
+                            <label for="subject">Subject <span class="required">*</span></label>
+                            <input type="text" id="subject" class="form-control" placeholder="Enter alert subject" maxlength="100" required>
+                            <small class="char-count"><span id="subjectCount">0</span>/100</small>
+                        </div>
+
+                        <!-- Message Body -->
+                        <div class="form-group">
+                            <label for="message">Message <span class="required">*</span></label>
+                            <textarea id="message" class="form-control" placeholder="Enter your alert message..." rows="6" maxlength="1000" required></textarea>
+                            <small class="char-count"><span id="messageCount">0</span>/1000</small>
+                        </div>
+
+                        <!-- Recipients Selection -->
+                        <div class="form-group">
+                            <label>Recipients <span class="required">*</span></label>
+                            <div class="recipients-options">
+                                <label class="checkbox-label">
+                                    <input type="radio" name="recipientType" value="all" checked onchange="updateRecipientList()">
+                                    <span>All Residents</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="radio" name="recipientType" value="household" onchange="updateRecipientList()">
+                                    <span>Specific Household</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="radio" name="recipientType" value="custom" onchange="updateRecipientList()">
+                                    <span>Custom Recipients</span>
+                                </label>
+                            </div>
+
+                            <!-- Household Selection (hidden by default) -->
+                            <div id="householdSelect" class="recipient-selector" style="display: none; margin-top: 1rem;">
+                                <select id="selectedHousehold" class="form-control" onchange="loadHouseholdResidents()">
+                                    <option value="">-- Select Household --</option>
+                                </select>
+                            </div>
+
+                            <!-- Custom Recipients (hidden by default) -->
+                            <div id="customRecipients" class="recipient-selector" style="display: none; margin-top: 1rem;">
+                                <input type="text" id="customRecipientEmail" class="form-control" placeholder="Enter email address" style="margin-bottom: 0.5rem;">
+                                <button type="button" class="btn btn-secondary" onclick="addRecipient()">+ Add Recipient</button>
+                                <div id="recipientList" class="recipient-list" style="margin-top: 1rem;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Schedule Send -->
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="scheduleCheckbox" onchange="toggleScheduleOptions()">
+                                <span>Schedule Send</span>
+                            </label>
+                            <div id="scheduleOptions" style="display: none; margin-top: 1rem;">
+                                <label for="sendDate">Send Date & Time</label>
+                                <input type="datetime-local" id="sendDate" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Attachment Option -->
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="attachmentCheckbox" onchange="toggleAttachmentOptions()">
+                                <span>Add Attachment</span>
+                            </label>
+                            <div id="attachmentOptions" style="display: none; margin-top: 1rem;">
+                                <input type="file" id="attachment" class="form-control">
+                                <small>Max file size: 5MB</small>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="saveDraft()">💾 Save as Draft</button>
+                            <button type="button" class="btn btn-secondary" onclick="previewAlert()">👁️ Preview</button>
+                            <button type="submit" class="btn btn-primary">✉️ Send Alert</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Templates Tab -->
+            <div id="templatesTab" class="tab-content">
+                <div class="templates-container">
+                    <div class="templates-header">
+                        <h2>Alert Templates</h2>
+                        <button class="btn btn-primary" onclick="createNewTemplate()">+ Create Template</button>
+                    </div>
+
+                    <div class="templates-grid" id="templatesGrid">
+                        <!-- Templates will be loaded here -->
+                    </div>
+
+                    <!-- Template Creation Modal -->
+                    <div id="templateModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeTemplateModal()">&times;</span>
+                            <h2>Create Alert Template</h2>
+                            <form id="templateForm">
+                                <div class="form-group">
+                                    <label for="templateName">Template Name</label>
+                                    <input type="text" id="templateName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="templateType">Template Type</label>
+                                    <select id="templateType" class="form-control" required>
+                                        <option value="">-- Select Type --</option>
+                                        <option value="emergency">🚨 Emergency</option>
+                                        <option value="warning">⚠️ Warning</option>
+                                        <option value="maintenance">🔧 Maintenance</option>
+                                        <option value="weather">🌦️ Weather Alert</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="templateSubject">Subject</label>
+                                    <input type="text" id="templateSubject" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="templateMessage">Message</label>
+                                    <textarea id="templateMessage" class="form-control" rows="5" required></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" onclick="closeTemplateModal()">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Template</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert History Tab -->
+            <div id="historyTab" class="tab-content">
+                <div class="history-container">
+                    <div class="history-header">
+                        <h2>Alert History</h2>
+                        <div class="history-filters">
+                            <select id="historyFilter" class="filter-select" onchange="filterAlertHistory()">
+                                <option value="">All Statuses</option>
+                                <option value="sent">Sent</option>
+                                <option value="draft">Draft</option>
+                                <option value="scheduled">Scheduled</option>
+                                <option value="failed">Failed</option>
+                            </select>
+                            <input type="text" id="historySearch" class="search-box" placeholder="Search alerts..." onkeyup="filterAlertHistory()">
+                        </div>
+                    </div>
+
+                    <div class="history-table-wrapper">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Subject</th>
+                                    <th>Recipients</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- History will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recipients Tab -->
+            <div id="recipientsTab" class="tab-content">
+                <div class="recipients-container">
+                    <div class="recipients-header">
+                        <h2>Recipients List</h2>
+                        <div class="recipients-filters">
+                            <input type="text" id="recipientSearch" class="search-box" placeholder="Search recipients..." onkeyup="filterRecipients()">
+                            <select id="householdFilter" class="filter-select" onchange="filterRecipients()">
+                                <option value="">All Households</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="recipients-table-wrapper">
+                        <table class="recipients-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Household</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recipientsTableBody">
+                                <!-- Recipients will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert Preview Modal -->
+    <div id="previewModal" class="modal" style="display: none;">
+        <div class="modal-content preview-modal">
+            <span class="close" onclick="closePreviewModal()">&times;</span>
+            <h2>Alert Preview</h2>
+            <div class="alert-preview" id="alertPreview">
+                <!-- Preview will be rendered here -->
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closePreviewModal()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="sendAlertFromPreview()">Send Alert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login to B-Safe</h2>
+            <form class="auth-form" id="loginForm">
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="form-link">Don't have an account? <a href="#" onclick="switchToSignup()">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignupModal()">&times;</span>
+            <h2>Create B-Safe Account</h2>
+            <form class="auth-form" id="signupForm">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <div class="agree-terms">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the Terms and Conditions</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+                <p class="form-link">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 B-Safe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/email-alerts.js"></script>
+</body>
+</html>

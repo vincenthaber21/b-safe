@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residents - B-Safe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/residents.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>B-Safe</h1>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="households.html">Households</a></li>
+                <li><a href="residents.html" class="active">Residents</a></li>
+                <li><a href="weather-map.html">Weather Map</a></li>
+                <li><a href="email-alerts.html">E-Mail Alerts</a></li>
+                <li><a href="#" onclick="openLoginModal()" class="nav-auth">Login</a></li>
+                <li><a href="#" onclick="openSignupModal()" class="nav-auth signup-btn">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Residents Section -->
+    <section class="residents-section">
+        <div class="container">
+            <div class="section-header">
+                <h1>Community Residents</h1>
+                <p>View and manage resident information</p>
+            </div>
+
+            <!-- Filter and Search -->
+            <div class="residents-controls">
+                <input type="text" id="searchInput" placeholder="Search residents by name or email..." class="search-box">
+                <select id="filterHousehold" class="filter-select">
+                    <option value="">All Households</option>
+                </select>
+                <select id="filterStatus" class="filter-select">
+                    <option value="">All Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <button class="btn btn-secondary" onclick="addResident()">+ Add Resident</button>
+            </div>
+
+            <!-- Residents List/Grid Toggle -->
+            <div class="view-toggle">
+                <button class="toggle-btn active" onclick="switchToGridView()">Grid View</button>
+                <button class="toggle-btn" onclick="switchToTableView()">Table View</button>
+            </div>
+
+            <!-- Residents Grid View -->
+            <div id="residentsGridView" class="residents-grid">
+                <!-- Residents will be loaded here -->
+            </div>
+
+            <!-- Residents Table View -->
+            <div id="residentsTableView" class="residents-table-wrapper" style="display: none;">
+                <table class="residents-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Household</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="residentsTableBody">
+                        <!-- Table rows will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resident Details Modal -->
+    <div id="residentModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close" onclick="closeResidentModal()">&times;</span>
+            <div class="resident-modal-content" id="residentDetails"></div>
+        </div>
+    </div>
+
+    <!-- Add Resident Modal -->
+    <div id="addResidentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddResidentModal()">&times;</span>
+            <h2>Add New Resident</h2>
+            <form class="auth-form" id="addResidentForm">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="tel" placeholder="Phone Number" required>
+                <input type="text" placeholder="Emergency Contact" required>
+                <input type="tel" placeholder="Emergency Contact Phone" required>
+                <select required>
+                    <option value="">Select Household</option>
+                    <option value="Smith Family">Smith Family</option>
+                    <option value="Johnson Residence">Johnson Residence</option>
+                    <option value="Williams Estate">Williams Estate</option>
+                </select>
+                <select required>
+                    <option value="">Select Role</option>
+                    <option value="Head of Household">Head of Household</option>
+                    <option value="Member">Member</option>
+                    <option value="Tenant">Tenant</option>
+                </select>
+                <select required>
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Add Resident</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login to B-Safe</h2>
+            <form class="auth-form" id="loginForm">
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="form-link">Don't have an account? <a href="#" onclick="switchToSignup()">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignupModal()">&times;</span>
+            <h2>Create B-Safe Account</h2>
+            <form class="auth-form" id="signupForm">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <div class="agree-terms">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the Terms and Conditions</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+                <p class="form-link">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 B-Safe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/residents.js"></script>
+</body>
+</html>
